@@ -3,6 +3,7 @@ const colors = require("colors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const route = require("./routes/auth.route");
+const cors = require("cors")
 
 // config env
 dotenv.config();
@@ -14,6 +15,7 @@ const app = express();
 
 // middle ware 
 app.use(express.json());
+app.use(cors({origin:'http://localhost:5173',credentials:true}))
 
 app.get("/", (req, res) => {
   res.send("home page api is working");
