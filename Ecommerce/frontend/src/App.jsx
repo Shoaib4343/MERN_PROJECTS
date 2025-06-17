@@ -6,6 +6,8 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Policy from './pages/Policy'
 import NotFound from './pages/NotFound'
+import Register from './pages/Register'
+import Login from './pages/Login'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,6 +20,8 @@ const App = () => {
         {path: "/about", element: <About/>},
         {path: "/contact", element: <Contact/>},
         {path: "/policy", element: <Policy/>},
+        {path: "/register", element: <Register/>},
+        {path: "/login", element: <Login/>},
         
       ]
     }
