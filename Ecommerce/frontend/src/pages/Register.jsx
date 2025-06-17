@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { registerApi } from "../apis/Auth.api";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   // usestaet for user input fields data
@@ -39,7 +40,7 @@ const Register = () => {
       try {
         setError({});
         const res = await registerApi(inputData);
-        alert(res.data.message);
+        toast.success(res.data.message);
 
         console.log(res.data);
         setInputData({
@@ -49,9 +50,9 @@ const Register = () => {
           phone: "",
           address: "",
         });
-        setServerError(""); 
-        
-        navigate("/login")
+        setServerError("");
+
+        navigate("/login");
       } catch (error) {
         console.log("Error in Registrations ", error.response?.data);
         if (error.response?.data?.error) {
@@ -179,10 +180,21 @@ const Register = () => {
         <div>
           <button
             type="submit"
-            className="bg-red-600 hover:bg-red-700 transition-colors text-white py-3 px-6 mt-2 rounded-lg w-full cursor-pointer"
+            className="bg-green-600 hover:bg-green-700 transition-colors text-white py-3 px-6 mt-2 rounded-lg w-full cursor-pointer"
           >
             Submit
           </button>
+        </div>
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-300">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="text-blue-400 hover:underline cursor-pointer"
+            >
+              Login here
+            </span>
+          </p>
         </div>
       </form>
     </div>

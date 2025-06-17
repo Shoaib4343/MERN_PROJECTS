@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { loginApi } from "../apis/Auth.api";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   // usestaet for user input fields data
   const [inputData, setInputData] = useState({
     email: "",
     password: "",
-   
   });
   const [error, setError] = useState({});
   const [serverError, setServerError] = useState("");
@@ -29,22 +29,20 @@ const Login = () => {
     let validate = {};
     if (!inputData.email) validate.email = "email is required";
     if (!inputData.password) validate.password = "password is required";
-   
 
     if (Object.keys(validate).length === 0) {
       try {
         setError({});
         const res = await loginApi(inputData);
-        alert(res.data.message);
+        toast.success(res.data.message);
 
         console.log(res.data);
         setInputData({
           email: "",
           password: "",
-        
         });
-        
-        navigate("/login")
+
+        navigate("/");
       } catch (error) {
         console.log("Error in Registrations ", error.response?.data);
         if (error.response?.data?.error) {
@@ -69,8 +67,6 @@ const Login = () => {
             {serverError}
           </p>
         )}
-
-       
 
         <div>
           <label className="block text-sm font-medium mb-1" htmlFor="email">
@@ -112,17 +108,24 @@ const Login = () => {
           )}
         </div>
 
-        
-
-        
-
         <div>
           <button
             type="submit"
-            className="bg-red-600 hover:bg-red-700 transition-colors text-white py-3 px-6 mt-2 rounded-lg w-full cursor-pointer"
+            className="bg-green-600 hover:bg-green-700 transition-colors text-white py-3 px-6 mt-2 rounded-lg w-full cursor-pointer"
           >
             Login
           </button>
+        </div>
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-300">
+            Don’t have an account?{" "}
+            <span
+              onClick={() => navigate("/register")}
+              className="text-blue-400 hover:underline cursor-pointer"
+            >
+              Register here
+            </span>
+          </p>
         </div>
       </form>
     </div>
