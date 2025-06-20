@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { loginApi } from "../apis/Auth.api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from "../context/auth.context";
 
 const Login = () => {
+  // auth context
+  const [auth,setAuth] = useAuth();
   // usestaet for user input fields data
   const [inputData, setInputData] = useState({
     email: "",
@@ -41,6 +44,20 @@ const Login = () => {
           email: "",
           password: "",
         });
+
+
+        // in login we pass the user and token to context api for globle access around the app
+        setAuth({
+          ...auth,
+          user: res.data?.user,
+          token: res.data?.token
+        })
+
+        // now we will save it in local sorage the user and the token
+        localStorage.setItem("auth",JSON.stringify({
+          user: res.data.user,
+          token: res.data.token,
+        }))
 
         navigate("/");
       } catch (error) {
