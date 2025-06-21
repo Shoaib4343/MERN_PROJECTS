@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { loginApi } from "../apis/Auth.api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../context/auth.context";
 
@@ -15,6 +15,8 @@ const Login = () => {
   const [error, setError] = useState({});
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/"
 
   //   handle input datea fucntion
   const handleInputData = (e) => {
@@ -59,7 +61,7 @@ const Login = () => {
           token: res.data.token,
         }))
 
-        navigate("/");
+        navigate(from);
       } catch (error) {
         console.log("Error in Registrations ", error.response?.data);
         if (error.response?.data?.error) {

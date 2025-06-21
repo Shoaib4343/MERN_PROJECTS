@@ -11,6 +11,11 @@ route.post("/register",validate(registerSchema),register)
 // Login Route || Method Post
 route.post("/login",validate(loginSchema),login)
 
+// user protected route
+route.get("/dashbord",isSignIn,(req,res)=>{
+    res.status(200).json({status : "ok"})
+})
+
 route.post("/test",isSignIn,isAdmin,test)
 
 

@@ -11,6 +11,8 @@ import Login from "./pages/Login";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // ✅ Required for styles
+import PrivateRoute from "./routes/PrivateRoute";
+import Dashbord from "./pages/user/Dashbord";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -25,6 +27,15 @@ const App = () => {
         { path: "/policy", element: <Policy /> },
         { path: "/register", element: <Register /> },
         { path: "/login", element: <Login /> },
+
+        // user
+        {
+       
+          element: <PrivateRoute />,
+          children:[
+            {path: "/dashbord",element: <Dashbord />},
+          ]
+        },
       ],
     },
   ]);
