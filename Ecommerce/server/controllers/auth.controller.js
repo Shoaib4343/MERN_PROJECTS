@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 // register controller
 const register = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address,answer } = req.body;
 
     // check User
     const checkUser = await userModel.findOne({ email });
@@ -24,6 +24,7 @@ const register = async (req, res) => {
       email,
       phone,
       address,
+      answer,
       password: userHashedPass,
     }).save();
 
@@ -100,4 +101,33 @@ const test = (req,res)=>{
 }
 
 
-module.exports = { register,login,test };
+// forget password
+const forget_password = async(req,res)=>{
+try {
+  let {email,answer,new_password} = req.body
+  const user = userModel.findOne({email,answer});
+  if(!user){
+    res.status(500).res({
+      success: false,
+      message: "User not found"
+    })
+  };
+  if(user){
+    const hashNewPassword = await hashPass(new_password)
+    await userModel.findOneAndUpdate(user._id,{password:hashNewPassword});
+    res.status(200).json({
+      success:true,
+      message: "Password Reset Successfully"
+    })
+  }
+} catch (error) {
+  res.status(500).json({
+    success: false,
+    message: 'Something went wrong in Forget Password',
+    error: error.message
+  })
+}
+}
+
+
+module.exports = { register,login,test,forget_password };

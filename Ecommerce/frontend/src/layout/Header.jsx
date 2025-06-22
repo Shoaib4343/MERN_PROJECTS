@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { CiMenuFries } from "react-icons/ci";
-import { RxCross1, RxTokens } from "react-icons/rx";
+import { RxCross1 } from "react-icons/rx";
 import { useAuth } from "../context/auth.context";
 import { toast } from "react-toastify";
 
 const Header = () => {
   const [isNav, setIsNav] = useState(false);
   const menuRef = useRef(null);
-  // auth context
   const [auth, setAuth] = useAuth();
-
-  // navigate
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +18,6 @@ const Header = () => {
       }
     };
     document.addEventListener("mousedown", menuRefHandler);
-
     return () => {
       document.removeEventListener("mousedown", menuRefHandler);
     };
@@ -31,30 +27,24 @@ const Header = () => {
     setIsNav(!isNav);
   };
 
-  // handle LogouOut
   const handleLogOut = () => {
-    setAuth({
-      ...auth,
-      user: null,
-      token: "",
-    });
+    setAuth({ ...auth, user: null, token: "" });
     localStorage.removeItem("auth");
     navigate("/");
     toast.success("Logout Successfully");
   };
 
-  // helper class for active nav link
   const navLinkClass = ({ isActive }) =>
     isActive
-      ? "text-gray-300 font-semibold"
-      : "text-white hover:text-gray-300 transition";
+      ? "text-primary font-semibold"
+      : "text-color-text hover:text-primary transition";
 
   return (
-    <header className="bg-gray-900 text-white shadow-md sticky top-0 z-50">
+    <header className="bg-surface text-color-text shadow-md sticky top-0 z-50 font-poppins">
       <div className="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
         {/* Logo */}
-        <h1 className="text-2xl font-bold tracking-tight text-gray-100 font-poppins">
-          <NavLink to="/" className="text-white">
+        <h1 className="text-2xl font-bold tracking-tight text-primary">
+          <NavLink to="/" className="text-primary">
             EcoMart
           </NavLink>
         </h1>
@@ -81,16 +71,15 @@ const Header = () => {
           <div className="flex gap-3">
             {!auth.user ? (
               <>
-                {" "}
                 <NavLink
                   to="/login"
-                  className="px-4 py-1 border border-gray-300 rounded-md hover:bg-gray-700 transition"
+                  className="px-4 py-2 border border-muted text-muted rounded-md hover:bg-primary-hover hover:text-white transition"
                 >
                   Login
                 </NavLink>
                 <NavLink
                   to="/register"
-                  className="px-4 py-1 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-200 transition"
+                  className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
                 >
                   Register
                 </NavLink>
@@ -98,8 +87,8 @@ const Header = () => {
             ) : (
               <NavLink
                 to="/login"
-                className="px-4 py-1 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-200 transition"
                 onClick={handleLogOut}
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
               >
                 Logout
               </NavLink>
@@ -107,10 +96,10 @@ const Header = () => {
           </div>
         </nav>
 
-        {/*  Menu Icon */}
+        {/* Burger Menu */}
         <div
           onClick={handleIsNav}
-          className="md:hidden text-3xl cursor-pointer transition duration-300"
+          className="md:hidden text-3xl cursor-pointer transition"
         >
           <CiMenuFries />
         </div>
@@ -119,12 +108,12 @@ const Header = () => {
       {/* Mobile Menu */}
       <nav
         ref={menuRef}
-        className={`fixed top-0 w-64 h-full bg-gray-800 text-white p-6 z-40 transition-all duration-500 ease-in-out md:hidden ${
+        className={`fixed top-0 w-64 h-full bg-surface text-color-text p-6 z-40 transition-all duration-500 ease-in-out md:hidden ${
           isNav ? "right-0" : "-right-full"
         }`}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-100">EcoMart</h2>
+          <h2 className="text-xl font-semibold text-primary">EcoMart</h2>
           <button onClick={handleIsNav} className="text-2xl cursor-pointer">
             <RxCross1 />
           </button>
@@ -150,14 +139,14 @@ const Header = () => {
               <NavLink
                 to="/login"
                 onClick={handleIsNav}
-                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-700 transition"
+                className="px-4 py-2 border border-muted text-muted rounded-md hover:bg-primary-hover hover:text-white transition"
               >
                 Login
               </NavLink>
               <NavLink
                 to="/register"
                 onClick={handleIsNav}
-                className="px-4 py-2 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-200 transition"
+                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
               >
                 Register
               </NavLink>
@@ -169,7 +158,7 @@ const Header = () => {
                 handleIsNav();
                 handleLogOut();
               }}
-              className="px-4 py-2 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-200 transition"
+              className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
             >
               Logout
             </NavLink>

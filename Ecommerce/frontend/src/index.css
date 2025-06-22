@@ -7,4 +7,16 @@
     --font-dancing-script : "Dancing Script", "cursive";
     --font-playfair : "Playfair", "serif";
 
+   --color-primary: #003049;      /* Deep navy blue – strong for buttons or headings */
+  --color-secondary: #669bbc;    /* Soft blue – good for hover, accents, or secondary buttons */
+  --color-background: #e8f0fe;   /* Warm beige – gives a soft, creamy background feel */
+  --color-surface: #ffffff;      /* White – perfect for card/form surfaces */
+  --color-danger: #c1121f;       /* Strong red – ideal for error or alert messages */
+  --color-muted: #6c757d;        /* Medium gray – used for placeholders, secondary text */
+  --color-text: #212529;         /* Very dark gray – readable and accessible text color */
+  --color-primary-hover: #1a4a66;
+
+  
+        
+
 }

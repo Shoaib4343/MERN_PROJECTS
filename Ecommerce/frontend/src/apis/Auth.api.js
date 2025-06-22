@@ -19,3 +19,7 @@ export const userDashbordApi = () => {
     },
   });
 };
+
+export const resetPassword = (data)=>{
+  return api.post("/api/v1/forget_password", data)
+}

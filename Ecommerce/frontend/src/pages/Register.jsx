@@ -11,6 +11,7 @@ const Register = () => {
     password: "",
     phone: "",
     address: "",
+    answer: '',
   });
   const [error, setError] = useState({});
   const [serverError, setServerError] = useState("");
@@ -35,6 +36,7 @@ const Register = () => {
     if (!inputData.password) validate.password = "password is required";
     if (!inputData.phone) validate.phone = "phone is required";
     if (!inputData.address) validate.address = "address is required";
+    if (!inputData.answer) validate.answer = "pet name is required";
 
     if (Object.keys(validate).length === 0) {
       try {
@@ -49,6 +51,8 @@ const Register = () => {
           password: "",
           phone: "",
           address: "",
+          answer: '',
+
         });
         setServerError("");
 
@@ -66,136 +70,141 @@ const Register = () => {
     }
   };
   return (
-    <div className="bg-gray-950 text-white max-w-lg mx-auto my-10 p-10 rounded-lg shadow shadow-red-600">
-      <form className="space-y-4" onSubmit={handleForm}>
-        <h1 className="text-3xl font-bold font-poppins text-center underline underline-offset-4 py-2">
-          Registration Form
-        </h1>
+    <div className="min-h-screen bg-surface flex items-center justify-center px-4 py-8 font-poppins text-color-text">
+      <form
+        onSubmit={handleForm}
+        className="w-full max-w-2xl bg-surface backdrop-blur-md p-10 rounded-2xl shadow-xl border border-muted/30"
+      >
+        <h2 className="text-center text-4xl font-semibold text-primary mb-8 tracking-tight underline underline-offset-4">
+          Register your account
+        </h2>
 
         {serverError && (
-          <p className="text-red-500 text-sm font-semibold text-center">
+          <p className="text-danger text-center text-sm mb-4 font-medium">
             {serverError}
           </p>
         )}
 
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="name">
-            Enter Name:
-          </label>
-          <input
-            className="w-full bg-gray-800 p-3 rounded-lg focus:outline-gray-500 focus:outline-2"
-            type="text"
-            name="name"
-            id="name"
-            placeholder="e.g. John Doe"
-            value={inputData.name}
-            onChange={handleInputData}
-          />
-          {error.name && (
-            <span className="text-red-600 text-sm font-medium">
-              {error.name}
-            </span>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
+          <div>
+            <label htmlFor="name" className="text-sm font-medium text-muted mb-1 block">
+              Full Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="John Doe"
+              value={inputData.name}
+              onChange={handleInputData}
+              className="bg-background w-full px-4 py-3  rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition "
+            />
+            {error.name && <p className="text-danger text-sm mt-1">{error.name}</p>}
+          </div>
+
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="text-sm font-medium text-muted mb-1 block">
+              Email Address
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              value={inputData.email}
+              onChange={handleInputData}
+              className="bg-background w-full px-4 py-3  rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition"
+            />
+            {error.email && <p className="text-danger text-sm mt-1">{error.email}</p>}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className="text-sm font-medium text-muted mb-1 block">
+              Password
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              value={inputData.password}
+              onChange={handleInputData}
+              className="bg-background w-full px-4 py-3  rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition"
+            />
+            {error.password && <p className="text-danger text-sm mt-1">{error.password}</p>}
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label htmlFor="phone" className="text-sm font-medium text-muted mb-1 block">
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="text"
+              placeholder="03XX-XXXXXXX"
+              value={inputData.phone}
+              onChange={handleInputData}
+              className="bg-background w-full px-4 py-3  rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition"
+            />
+            {error.phone && <p className="text-danger text-sm mt-1">{error.phone}</p>}
+          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="email">
-            Enter Email:
-          </label>
-          <input
-            className="w-full bg-gray-800 p-3 rounded-lg focus:outline-gray-500 focus:outline-2"
-            type="email"
-            name="email"
-            id="email"
-            placeholder="e.g. example@email.com"
-            value={inputData.email}
-            onChange={handleInputData}
-          />
-          {error.email && (
-            <span className="text-red-600 text-sm font-medium">
-              {error.email}
-            </span>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="password">
-            Enter Password:
-          </label>
-          <input
-            className="w-full bg-gray-800 p-3 rounded-lg focus:outline-gray-500 focus:outline-2"
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Minimum 6 characters"
-            value={inputData.password}
-            onChange={handleInputData}
-          />
-          {error.password && (
-            <span className="text-red-600 text-sm font-medium">
-              {error.password}
-            </span>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="phone">
-            Enter Phone Number:
-          </label>
-          <input
-            className="w-full bg-gray-800 p-3 rounded-lg focus:outline-gray-500 focus:outline-2"
-            type="text"
-            name="phone"
-            id="phone"
-            placeholder="e.g. 03XX-XXXXXXX"
-            value={inputData.phone}
-            onChange={handleInputData}
-          />
-          {error.phone && (
-            <span className="text-red-600 text-sm font-medium">
-              {error.phone}
-            </span>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="address">
-            Enter Address:
+        {/* Address */}
+        <div className="mt-6">
+          <label htmlFor="address" className="text-sm font-medium text-muted mb-1 block">
+            Address
           </label>
           <textarea
-            className="w-full bg-gray-800 p-3 rounded-lg focus:outline-gray-500 focus:outline-2"
-            name="address"
             id="address"
-            placeholder="House #, Street #, City"
+            name="address"
+            placeholder="Street, City"
             value={inputData.address}
             onChange={handleInputData}
+            className="bg-background w-full px-4 py-3  rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition"
           ></textarea>
-          {error.address && (
-            <span className="text-red-600 text-sm font-medium">
-              {error.address}
-            </span>
-          )}
+          {error.address && <p className="text-danger text-sm mt-1">{error.address}</p>}
         </div>
 
-        <div>
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 transition-colors text-white py-3 px-6 mt-2 rounded-lg w-full cursor-pointer"
+        {/* Answer */}
+        <div className="mt-4">
+          <label htmlFor="answer" className="text-sm font-medium text-muted mb-1 block">
+            Pet Name (Security Question)
+          </label>
+          <textarea
+            id="answer"
+            name="answer"
+            placeholder="Your pet's name"
+            value={inputData.answer}
+            onChange={handleInputData}
+            className="bg-background w-full px-4 py-3  rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition"
+          ></textarea>
+          {error.answer && <p className="text-danger text-sm mt-1">{error.answer}</p>}
+        </div>
+
+        {/* Button */}
+        <button
+          type="submit"
+          className="mt-8 w-full py-3 bg-primary hover:bg-primary-hover text-white text-lg font-medium rounded-xl transition"
+        >
+          Sign Up
+        </button>
+
+        {/* Login Link */}
+        <p className="text-center text-sm text-muted mt-6">
+          Already have an account?
+          <span
+            onClick={() => navigate("/login")}
+            className=" text-primary underline cursor-pointer hover:text-primary-hover"
           >
-            Submit
-          </button>
-        </div>
-        <div className="text-center mt-4">
-          <p className="text-sm text-gray-300">
-            Already have an account?{" "}
-            <span
-              onClick={() => navigate("/login")}
-              className="text-blue-400 hover:underline cursor-pointer"
-            >
-              Login here
-            </span>
-          </p>
-        </div>
+            Login here
+          </span>
+        </p>
       </form>
     </div>
   );

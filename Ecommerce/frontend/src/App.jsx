@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // ✅ Required for styles
 import PrivateRoute from "./routes/PrivateRoute";
 import Dashbord from "./pages/user/Dashbord";
+import ResetPassword from "./pages/ResetPassword ";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,6 +28,8 @@ const App = () => {
         { path: "/policy", element: <Policy /> },
         { path: "/register", element: <Register /> },
         { path: "/login", element: <Login /> },
+        { path: "/forgot_password", element: <ResetPassword /> },
+
 
         // user
         {
@@ -48,7 +51,7 @@ const App = () => {
         autoClose={3000}
         hideProgressBar={false}
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
     </>
   );

@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 const userModel = new mongoose.Schema({
     name:{
@@ -22,6 +23,10 @@ const userModel = new mongoose.Schema({
     address:{
         type: String,
         required: true
+    },
+    answer:{
+        type:String,
+        required: true,
     },
     role:{
         type: Number,
