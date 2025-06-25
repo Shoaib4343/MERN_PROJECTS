@@ -20,6 +20,14 @@ export const userDashbordApi = () => {
   });
 };
 
+export const adminDashbordApi = ()=>{
+  return api.get("/api/v1/admin",{
+    headers:{
+      Authorization: JSON.parse(localStorage.getItem("auth"))?.token,
+    }
+  })
+}
+
 export const resetPassword = (data)=>{
   return api.post("/api/v1/forget_password", data)
 }

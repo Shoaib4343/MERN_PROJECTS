@@ -14,6 +14,15 @@ import "react-toastify/dist/ReactToastify.css"; // ✅ Required for styles
 import PrivateRoute from "./routes/PrivateRoute";
 import Dashbord from "./pages/user/Dashbord";
 import ResetPassword from "./pages/ResetPassword ";
+import AdminProtectRoute from "./routes/AdminProtectRoute";
+import AdminDashbord from "./pages/Admin/AdminDashbord";
+import CreateCategory from "./pages/Admin/CreateCategory";
+import CreateProduct from "./pages/Admin/CreateProduct";
+import UserList from "./pages/Admin/UserList";
+import AdminLayout from "./pages/Admin/AdminLayout";
+import UserLayout from "./pages/user/UserLayout";
+import UserOrders from "./pages/user/UserOrders";
+import UserProfile from "./pages/user/UserProfile";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -30,14 +39,37 @@ const App = () => {
         { path: "/login", element: <Login /> },
         { path: "/forgot_password", element: <ResetPassword /> },
 
-
         // user
         {
-       
           element: <PrivateRoute />,
-          children:[
-            {path: "/dashbord",element: <Dashbord />},
-          ]
+          children: [
+            {
+              path: "/dashbord",
+              element: <UserLayout />,
+              children: [
+                { index: true, element: <Dashbord /> },
+                { path: "orders", element: <UserOrders /> },
+                { path: "profile", element: <UserProfile /> },
+              ],
+            },
+          ],
+        },
+
+        // Admin
+        {
+          element: <AdminProtectRoute />, // First protect it
+          children: [
+            {
+              path: "/admin",
+              element: <AdminLayout />, // Layout with sidebar
+              children: [
+                { index: true, element: <AdminDashbord /> }, // Loads at /admin
+                { path: "create-category", element: <CreateCategory /> },
+                { path: "create-product", element: <CreateProduct /> },
+                { path: "users", element: <UserList /> },
+              ],
+            },
+          ],
         },
       ],
     },

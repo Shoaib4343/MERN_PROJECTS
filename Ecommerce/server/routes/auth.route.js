@@ -20,6 +20,11 @@ route.get("/dashbord",isSignIn,(req,res)=>{
 })
 
 
+// Admin Protected Route
+route.get("/admin",isSignIn,isAdmin,(req,res)=>{
+    res.status(200).json({success:true,status:"OK"})
+})
+
 route.post("/test",isSignIn,isAdmin,test)
 
 

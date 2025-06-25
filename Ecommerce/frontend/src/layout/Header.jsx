@@ -85,13 +85,39 @@ const Header = () => {
                 </NavLink>
               </>
             ) : (
-              <NavLink
-                to="/login"
-                onClick={handleLogOut}
-                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
-              >
-                Logout
-              </NavLink>
+              // <NavLink
+              //   to="/login"
+              //   onClick={handleLogOut}
+              //   className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
+              // >
+              //   Logout
+              // </NavLink>
+              <div className="group relative inline-block">
+                <button className="px-4 py-2 bg-primary text-white rounded ">
+                  {auth?.user?.name}
+                </button>
+
+                <div className="absolute  right-0 top-10 w-40 bg-white text-black rounded shadow-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50 border border-gray-200">
+                  <NavLink
+                    to={`${auth?.user?.role === 1 ? '/admin' : '/dashbord'}`}
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    Dashboard
+                  </NavLink>
+                  <NavLink
+                    to="/profile"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    Profile
+                  </NavLink>
+                  <button
+                    onClick={handleLogOut}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </nav>

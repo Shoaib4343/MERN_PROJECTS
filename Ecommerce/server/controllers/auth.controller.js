@@ -75,7 +75,8 @@ const login = async(req,res)=>{
       user:{
         _id: user._id,
         email: user.email,
-        name: user.name
+        name: user.name,
+        role: user.role,
       }
     })
 
@@ -105,9 +106,9 @@ const test = (req,res)=>{
 const forget_password = async(req,res)=>{
 try {
   let {email,answer,new_password} = req.body
-  const user = userModel.findOne({email,answer});
+  const user = await userModel.findOne({email,answer});
   if(!user){
-    res.status(500).res({
+    res.status(500).json({
       success: false,
       message: "User not found"
     })
@@ -115,19 +116,60 @@ try {
   if(user){
     const hashNewPassword = await hashPass(new_password)
     await userModel.findOneAndUpdate(user._id,{password:hashNewPassword});
-    res.status(200).json({
+    return res.status(200).json({
       success:true,
       message: "Password Reset Successfully"
     })
   }
 } catch (error) {
-  res.status(500).json({
+ return res.status(500).json({
     success: false,
     message: 'Something went wrong in Forget Password',
     error: error.message
   })
 }
 }
+
+
+// const forget_password = async (req, res) => {
+//   try {
+//     const { email, answer, new_password } = req.body;
+//     console.log("Input:", { email, answer, new_password });
+
+//     const user = await userModel.findOne({
+//       email,
+//       answer: { $regex: new RegExp(`^${answer}$`, 'i') } // Case-insensitive match
+//     });
+
+//     if (!user) {
+//       console.log("No user found");
+//       return res.status(404).json({
+//         success: false,
+//         message: "User not found",
+//       });
+//     }
+
+//     const hashNewPassword = await hashPass(new_password);
+//     console.log("Hashed password");
+
+//     await userModel.findByIdAndUpdate(user._id, { password: hashNewPassword });
+//     console.log("Password updated");
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "Password Reset Successfully",
+//     });
+
+//   } catch (error) {
+//     console.log("Error:", error.message);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Something went wrong in Forget Password",
+//       error: error.message,
+//     });
+//   }
+// };
+
 
 
 module.exports = { register,login,test,forget_password };
