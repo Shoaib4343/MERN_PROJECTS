@@ -2,7 +2,8 @@ const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const route = require("./routes/auth.route");
+const authRoute = require("./routes/auth.route");
+const categoryRoute = require("./routes/category.route");
 const cors = require("cors")
 
 // config env
@@ -21,8 +22,11 @@ app.get("/", (req, res) => {
   res.send("home page api is working");
 });
 
-// middlewares
-app.use("/api/v1/", route);
+// auth  middlewares
+app.use("/api/v1/", authRoute);
+
+// Category Middlewares
+app.use("/api/v1/",categoryRoute)
 
 const PORT = process.env.PORT || 8080;
 app.listen(8080, () =>
