@@ -4,7 +4,8 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoute = require("./routes/auth.route");
 const categoryRoute = require("./routes/category.route");
-const cors = require("cors")
+const cors = require("cors");
+const productRoute = require("./routes/product.route");
 
 // config env
 dotenv.config();
@@ -27,6 +28,8 @@ app.use("/api/v1/", authRoute);
 
 // Category Middlewares
 app.use("/api/v1/",categoryRoute)
+// Product Middleware
+app.use("/api/v1/",productRoute)
 
 const PORT = process.env.PORT || 8080;
 app.listen(8080, () =>
