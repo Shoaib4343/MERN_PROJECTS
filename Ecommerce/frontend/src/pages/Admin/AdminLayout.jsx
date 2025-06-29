@@ -13,9 +13,11 @@ const AdminLayout = () => {
   return (
     <div className="min-h-screen flex bg-background text-color-text font-poppins">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 p-6 shadow-lg">
+      <aside className="w-64 bg-white   p-6  my-4 rounded-lg">
         <h2 className="text-2xl font-bold mb-8 text-primary text-center">
+          <NavLink to="/admin">
           Admin Panel
+          </NavLink>
         </h2>
 
         <nav className="flex flex-col gap-2 text-sm">
