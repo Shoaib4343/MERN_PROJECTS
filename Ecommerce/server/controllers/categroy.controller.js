@@ -7,8 +7,8 @@ const createCategoryController = async (req, res) => {
     const { name } = req.body;
     const checkCategory = await categoryModel.findOne({ name });
     if (checkCategory) {
-      return res.status(200).json({
-        success: true,
+      return res.status(500).json({
+        success: false,
         message: "Category Already Exists...",
       });
     }
@@ -78,7 +78,7 @@ const getAllCategoriesController = async (req, res) => {
 const getSingleCategory = async (req, res) => {
   try {
     const { slug } = req.params;
-    const category = await categoryModel.findOne({slug});
+    const category = await categoryModel.findOne({ slug });
     res.status(200).json({
       success: true,
       message: "Get Single Category Successfully..",
@@ -94,28 +94,27 @@ const getSingleCategory = async (req, res) => {
 };
 
 // DELETE SINGLE CATEGORY CONTROLLER
-const deleteSingleCategory = async(req,res)=>{
-    try {
-      const {id} = req.params;
-      await categoryModel.findByIdAndDelete(id);
-      res.status(200).json({
-        success: true,
-        message: 'Category Deleted Successfully..',
-      })
-        
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error in Deleting Single Category',
-            error: error.message
-        })
-    }
-}
+const deleteSingleCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await categoryModel.findByIdAndDelete(id);
+    res.status(200).json({
+      success: true,
+      message: "Category Deleted Successfully..",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error in Deleting Single Category",
+      error: error.message,
+    });
+  }
+};
 
 module.exports = {
   createCategoryController,
   updateCategoryController,
   getAllCategoriesController,
   getSingleCategory,
-  deleteSingleCategory
+  deleteSingleCategory,
 };

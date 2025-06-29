@@ -21,7 +21,7 @@ route.post(
 );
 
 // UPDATE CATEGORY || METHOD POST
-route.post("/update-category/:id", isSignIn, isAdmin, updateCategoryController);
+route.put("/update-category/:id", isSignIn, isAdmin, updateCategoryController);
 
 // GET ALL CATEGORIES || METHOD GET
 route.get("/get-categories", getAllCategoriesController);
