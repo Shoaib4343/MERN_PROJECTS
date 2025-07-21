@@ -210,7 +210,7 @@ export const logout = async (req, res) => {
     res.clearCookie("token", {
       httpOnly: true,
       secure: process.env.DEV_MODE === "production",
-      sameSite: process.env.DEV_MODE === "production" ? "strict" : "none",
+      sameSite: process.env.DEV_MODE === "production" ? "strict" : "lax",
     });
 
     return res.status(200).json({
@@ -339,7 +339,7 @@ export const resetPassword = async(req,res)=>{
 
     await user.save();
 
-    res.status(500).json({
+    res.status(200).json({
       success: true,
       message: 'Password Reset Successfully'
     });
